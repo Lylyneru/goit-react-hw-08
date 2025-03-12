@@ -1,0 +1,52 @@
+.formContainer {
+  border: 2px solid #3f51b5; /* Синя рамка */
+  padding: 15px;
+  border-radius: 8px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px; /* Відступ між елементами */
+  background-color: #f9f9f9; /* Світлий фон */
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.inputField {
+  justify-content: center;
+  width: auto;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.addButton {
+  justify-content: center;
+  width: 150px;
+  padding: 10px;
+  background-color: #3f51b5; /* Синя кнопка */
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #303f9f;
+}
