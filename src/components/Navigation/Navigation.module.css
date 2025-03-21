@@ -1,0 +1,12 @@
+.link {
+  color: rgb(0, 0, 0);
+  list-style: none;
+}
+.active {
+  color: rgb(209, 96, 96);
+}
+.nav {
+  display: flex;
+  gap: 20px;
+  font-size: 2vw;
+}

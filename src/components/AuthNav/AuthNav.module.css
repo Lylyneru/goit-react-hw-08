@@ -1,0 +1,12 @@
+.link {
+  color: rgb(0, 0, 0);
+  list-style: none;
+}
+.active {
+  color: #e46c7c;
+}
+.div {
+  display: flex;
+  gap: 20px;
+  font-size: 2vw;
+}
