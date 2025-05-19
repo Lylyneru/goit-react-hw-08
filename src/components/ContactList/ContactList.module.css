@@ -1,4 +1,18 @@
-.contactList {
-  list-style: none;
-  border: none;
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  background: #7c5c5c;
+  padding: 20px;
+  border-radius: 10px;
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #444;
 }

@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../auth/operations";
+import { authInstance } from "../auth/operations";
+import toast from "react-hot-toast";
 
 export const fetchContacts = createAsyncThunk(
   "contacts/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const { data } = await api.get(`/contacts`);
+      const { data } = await authInstance.get("/contacts");
       return data;
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -16,12 +16,13 @@ export const fetchContacts = createAsyncThunk(
 
 export const addContact = createAsyncThunk(
   "contacts/addContact",
-  async (body, thunkAPI) => {
+  async (contact, thunkAPI) => {
     try {
-      const { data } = await api.post(`/contacts`, body);
+      const { data } = await authInstance.post("/contacts", contact);
+      toast.success("Contact added!", { position: "top-center" });
       return data;
     } catch (error) {
-      console.log(error);
+      toast.error("Error adding contact!", { position: "top-center" });
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -29,12 +30,13 @@ export const addContact = createAsyncThunk(
 
 export const deleteContact = createAsyncThunk(
   "contacts/deleteContact",
-  async (id, thunkAPI) => {
+  async (contactId, thunkAPI) => {
     try {
-      await api.delete(`/contacts/${id}`);
-      return id;
+      await authInstance.delete(`/contacts/${contactId}`);
+      toast.success("Contact deleted!", { position: "top-center" });
+      return contactId;
     } catch (error) {
-      console.log(error);
+      toast.error("Failed to delete contact!", { position: "top-center" });
       return thunkAPI.rejectWithValue(error.message);
     }
   }

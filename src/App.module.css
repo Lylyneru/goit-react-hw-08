@@ -1,0 +1,13 @@
+.div {
+  display: flex !important;
+  flex-direction: column;
+  background: #1a1a1a;
+  color: white;
+  font-family: "Arial", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}

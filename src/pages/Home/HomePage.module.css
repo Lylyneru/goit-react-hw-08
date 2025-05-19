@@ -1,0 +1,36 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: #fff;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  animation: bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.title:hover {
+  color: #affffe;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}

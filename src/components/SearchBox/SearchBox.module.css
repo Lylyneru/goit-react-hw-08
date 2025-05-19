@@ -1,0 +1,34 @@
+.searchBox {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 416px;
+  background: #2a2a2a;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+  border-radius: 6px;
+}
+
+.button {
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #d7f1a2 #afc487);
+  border: none;
+  border-radius: 6px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #88cc00, #aaff00);
+}

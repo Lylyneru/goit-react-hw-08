@@ -1,43 +1,73 @@
-import { Field, Form, Formik } from "formik";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import * as Yup from "yup";
 import { register } from "../../redux/auth/operations";
-import { Link } from "react-router-dom";
-import s from "./RegistrationForm.module.css";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import s from "./RegisterForm.module.css";
 
-export const RegistrationForm = () => {
+const RegisterForm = () => {
   const dispatch = useDispatch();
+
   const initialValues = {
     name: "",
     email: "",
     password: "",
   };
-  const handleSubmit = (values, options) => {
-    dispatch(register(values));
-    options.resetForm();
+
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .min(3, "Too short!")
+      .max(50, "Too long!")
+      .required("Required!"),
+    email: Yup.string().email("Invalid email").required("Required!"),
+    password: Yup.string()
+      .min(6, "At least 6 characters")
+      .required("Required!"),
+  });
+
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(register(values))
+      .unwrap()
+      .then((response) => {
+        toast.success(`Welcome, ${response.user.name}`);
+        resetForm();
+      })
+      .catch(() => {
+        toast.error("Email is already in use");
+      });
   };
 
   return (
-    <div className={s.div}>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <label>
-            <span>Name</span>
-            <Field name="name" />
-          </label>
-          <label>
-            <span>Email</span>
-            <Field name="email" />
-          </label>
-          <label>
-            <span>Password</span>
-            <Field name="password" type="password" />
-          </label>
-          <button type="submit">Register</button>
-          <p>
-            You already have account? <Link to="/login">Get it!</Link>
-          </p>
-        </Form>
-      </Formik>
-    </div>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form className={s.form}>
+        <label className={s.label}>
+          Name
+          <Field type="text" name="name" className={s.input} />
+          <ErrorMessage name="name" component="div" className={s.error} />
+        </label>
+
+        <label className={s.label}>
+          Email
+          <Field type="email" name="email" className={s.input} />
+          <ErrorMessage name="email" component="div" className={s.error} />
+        </label>
+
+        <label className={s.label}>
+          Password
+          <Field type="password" name="password" className={s.input} />
+          <ErrorMessage name="password" component="div" className={s.error} />
+        </label>
+
+        <button type="submit" className={s.button}>
+          Register
+        </button>
+      </Form>
+    </Formik>
   );
 };
+
+export default RegisterForm;

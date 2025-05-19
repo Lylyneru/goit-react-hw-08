@@ -1,56 +1,68 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contacts/operations";
 import s from "./ContactForm.module.css";
+import { selectContacts } from "../../redux/contacts/slice";
+import { addContact } from "../../redux/contacts/operations.js";
 
-export const ContactForm = () => {
+const ContactForm = () => {
   const dispatch = useDispatch();
+  const contacts = useSelector(selectContacts);
 
-  const validationSchema = Yup.object().shape({
+  const initialValues = {
+    name: "",
+    number: "",
+  };
+
+  const validationSchema = Yup.object({
     name: Yup.string()
       .min(3, "Too short!")
       .max(50, "Too long!")
-      .required("Required"),
+      .required("Required!"),
     number: Yup.string()
-      .required("Number is required")
-      .matches(/^[0-9]+$/, "Number must contain only digits")
-      .min(3, "Too Short!")
-      .max(50, "Too Long!"),
+      .matches(/^\d{3}-\d{2}-\d{2}$/, "Format: 123-45-67")
+      .required("Required!"),
   });
 
+  const handleSubmit = (values, { resetForm }) => {
+    const isExist = contacts.some(
+      (contact) => contact.name.toLowerCase() === values.name.toLowerCase()
+    );
+
+    if (isExist) {
+      alert(`${values.name} is already in contacts.`);
+      return;
+    }
+
+    dispatch(addContact(values));
+    resetForm();
+  };
+
   return (
-    <Formik
-      initialValues={{ name: "", number: "" }}
-      validationSchema={validationSchema}
-      onSubmit={(values, { resetForm }) => {
-        dispatch(addContact(values));
-        resetForm();
-      }}
-    >
-      <Form className={s.formContainer}>
-        <label>
-          Name:
-          <Field type="text" name="name" className={s.inputField} />
-          <ErrorMessage
-            name="name"
-            component="div"
-            className={s.errorMessage}
-          />
-        </label>
-        <label>
-          Number:
-          <Field type="text" name="number" className={s.inputField} />
-          <ErrorMessage
-            name="number"
-            component="div"
-            className={s.errorMessage}
-          />
-        </label>
-        <button type="submit" className={s.addButton}>
-          Add contact
-        </button>
-      </Form>
-    </Formik>
+    <div className={s.formContainer}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className={s.form}>
+          <label>
+            <p className={s.txt}>Name</p>
+            <Field type="text" name="name" className={s.input} />
+            <ErrorMessage name="name" component="div" className={s.error} />
+          </label>
+          <label>
+            <p className={s.txt}>Number</p>
+            <Field type="text" name="number" className={s.input} />
+            <ErrorMessage name="number" component="div" className={s.error} />
+          </label>
+          <button type="submit" className={s.button}>
+            Add Contact
+          </button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
+
+export default ContactForm;
