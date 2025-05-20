@@ -1,0 +1,30 @@
+.container {
+  background: linear-gradient(
+      217deg,
+      rgba(255, 100, 100, 0.5),
+      rgba(255, 100, 100, 0) 50.71%
+    ),
+    linear-gradient(
+      127deg,
+      rgba(100, 255, 100, 0.5),
+      rgba(100, 255, 100, 0) 70.71%
+    ),
+    linear-gradient(
+      336deg,
+      rgba(100, 100, 255, 0.5),
+      rgba(100, 100, 255, 0) 70.71%
+    );
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: #fff;
+}
+
+.loading {
+  font-size: 1.5rem;
+  text-align: center;
+  color: #888;
+}
